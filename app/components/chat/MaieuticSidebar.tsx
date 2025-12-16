@@ -6,7 +6,7 @@ import { clsx } from 'clsx';
 import { useRef, useEffect } from 'react';
 
 export function MaieuticSidebar() {
-    const { messages, input, handleInputChange, handleSubmit } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, error } = useChat({
         initialMessages: [
             {
                 id: 'welcome',
@@ -47,6 +47,12 @@ export function MaieuticSidebar() {
                         <span className="text-[10px] text-slate-600 capitalize">{m.role}</span>
                     </div>
                 ))}
+                {error && (
+                    <div className="rounded-lg bg-red-500/10 p-3 text-xs text-red-400 border border-red-500/20">
+                        <span className="font-bold block mb-1">Error</span>
+                        {error.message}
+                    </div>
+                )}
                 <div ref={messagesEndRef} />
             </div>
 

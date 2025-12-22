@@ -26,10 +26,23 @@ export async function POST(req: Request) {
         Your goal is to practice "Spec-Driven Development".
         1.  **Ask Clarifying Questions**: Do not just nod along. If the user says "I want a login", ask "Which provider? Google? Email? What happens on failure?".
         2.  **Be Socratic**: Guide the user to find the answers themselves by asking the right questions.
-        3.  **Focus on Constraints**: Try to extract strict rules (e.g., "Password must be 8 chars").
+        3.  **Focus on Constraints**: Try to extract strict rules (e.g., "Password must be 8 chars", "Timeout is 30s").
         4.  **Suggest Mermaid Flows**: If the user describes a process, suggest a Mermaid diagram syntax they can copy.
         
-        Keep responses concise and helpful.`,
+        **CRITICAL INSTRUCTION**:
+        If you identify SPECIFIC CONSTRAINTS or BUSINESS RULES in the user's input or your own reasoning, you MUST output them in a machine-readable JSON block at the very end of your response.
+        
+        Format:
+        \`\`\`json:constraints
+        [
+          { "category": "Auth", "content": "Password must be 8 chars" },
+          { "category": "UI", "content": "Button color is blue" }
+        ]
+        \`\`\`
+        
+        Common Categories: Authentication, Database, UI/UX, Performance, Business Rule.
+        
+        Only output this block if there are new or updated constraints.`,
             messages,
             onFinish: (event) => {
                 console.log('Gemini Stream Finished:', event.finishReason, event.text.substring(0, 50));
